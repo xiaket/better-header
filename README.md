@@ -1,3 +1,5 @@
+For English Translation, go to <https://github.com/xiaket/better-header#Introduction>
+
 简介
 ====
 
@@ -78,17 +80,23 @@ let g:BHDebug = "0"
 ```
 是否开debug, 默认关闭. debug输出是我在python代码中直接print出来的. 查看的话请在vim中输入:messages
 
+自定义Header
+============
+
 如果你需要添加你自己需要的header, 你需要:
 
 1. 在.vimrc中修改BHEnabledSuffix, 添加你所需要的后缀名(例如c)
 ```
 let g:BHEnabledSuffix = ['py', 'sh', 'c']
 ```
-2. 在.vimrc中写这个后缀名的header, 变量名为BHxxxHeader, 其中xxx为你的header的名字(小写), 此处我们添加BHcHeader:
+
+2. 在.vimrc中写这个后缀名的header, 变量名为BHxxxHeader, 其中xxx为你的header的名字, 此处我们添加BHcHeader:
 ```
 let g:BHcHeader = "/*\nAuthor:         %(author)s\nFilename:       %(filename)s\nDate created:   %(cdate)s\nLast modified:  %(date)s\n\nDescription:\n\n*/\n#include <stdio.h>\n#include <stdlib.h>\n#include <ctype.h>"
 ```
 好吧, 看起来不那么直观, 这个我没法fix了.
+
+3. 如果你需要覆盖插件里的header, 可以直接在.vimrc里编写你需要的BHshHeader或BHpyHeader.
 
 使用
 ====
@@ -100,7 +108,114 @@ let g:BHcHeader = "/*\nAuthor:         %(author)s\nFilename:       %(filename)s\
 let g:BHUnder = ['~/.xiaket/share/repos/ntes-repos', '~/.xiaket/share/Dropbox/mercurial', '~/.xiaket/share/Dropbox/my.repos']
 ```
 
-TODO
-----
+Introduction
+------------
 
-English translation.
+This vim plugin will update the header of your shell/python script, improving its readability and maintainablity. You could also add your header for your favourite language.
+
+This plugin is inspired by header.vim, originally written by Francisco Piedrafita: <http://www.vim.org/scripts/script.php?script_id=1142>
+
+Some rationale:
+
+  1. If filename does not ends in py/sh, do not add/update file header.
+  2. If we have no write access to the file, do nothing.
+  3. If the file is under some system directory, do not add/update file header.
+  4. If the file is in some specific directory, add file header for new file, and update file header on write.
+  5. If the file is under some specific directory, add/update file header(This would include child-directories).
+  6. By default, do not add/update file header.
+
+Installation
+============
+
+1. Please make sure your vim has python support, for this plugin is written in python.
+
+```
+vim --version | grep "+python"
+```
+
+If you can see some output header, then you may proceed.  :)
+
+2. Install using pathogen:
+
+```
+cd ~/.vim/bundle
+git clone https://github.com/xiaket/better-header.git
+```
+
+3. Last by not the least, add your name in your .vimrc:
+
+```
+let g:BHAUTHOR = 'Your name <yourname@example.com>'
+```
+
+Configuration
+=============
+
+Default configurations for this plugin:
+
+1. BHAUTHOR:
+```
+let g:BHAUTHOR = '尊姓大名 <yourname@example.com>'
+```
+
+2. BHEnabledSuffix:
+```
+let g:BHEnabledSuffix = ['py', 'sh']
+```
+We will add custom header file only for files end with these suffixes.
+
+3. BHExcludeDir:
+```
+let g:BHExcludeDir = ['usr', 'mnt', 'var', 'private', 'Volumes', 'opt']
+```
+We will do nothing for files under these directories(usually system folders).
+
+4. BHIn:
+```
+let g:BHIn = ['~']
+```
+Files under directories(not including its child directories) in this list will have a nice header.
+
+5. BHUnder:
+```
+let g:BHUnder = []
+```
+Files under directories(including its child directories) in this list will have a nice header.
+
+6. BHDebug:
+```
+let g:BHDebug = "0"
+```
+Debug options, it is closed by default. Those debug outputs are printed in my python code. Enter ':messages' in your vim to read them.
+
+Customize Header
+================
+
+If you wish to add your own header, you need to:
+
+1. Modify BHEnabledSuffix in your .vimrc, add your suffix(c for example here).
+```
+let g:BHEnabledSuffix = ['py', 'sh', 'c']
+```
+
+2. Add your header in your .vimrc. The name of the variable should be BHxxxHeader, for example:
+
+```
+let g:BHcHeader = "/*\nAuthor:         %(author)s\nFilename:       %(filename)s\nDate created:   %(cdate)s\nLast modified:  %(date)s\n\nDescription:\n\n*/\n#include <stdio.h>\n#include <stdlib.h>\n#include <ctype.h>"
+```
+This %(author)s thingy will be replaced.
+
+Well, it's clumsy to use \n as new line. however, I'm not sure their is a way to fix that.
+
+3. (Optional)If you wish to override the default header in this plugin, just write your own BHshHeader or BHpyHeader in your .vimrc.
+
+Usage
+=====
+
+I play with shell and python script everyday. Thus the header for these scripts are hardcoded in this plugin.
+
+I followed the installation instruction above, added my name in my .vimrc. By default, this plugin does not write header, so you need to modify your BHIn and BHUnder, add your own choice. I start writing new script in ~ most of the time, so I hope files under this directory should start with a nice header. Oh, but not it's child directories, for I store many things in my ~. As I'm the author of this script, BHIn include ~ by default, so no need to change that. I also need to add by repositories in BHUnder:
+
+```
+let g:BHUnder = ['~/.xiaket/share/repos/ntes-repos', '~/.xiaket/share/Dropbox/mercurial', '~/.xiaket/share/Dropbox/my.repos']
+```
