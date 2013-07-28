@@ -1,4 +1,4 @@
-For English Translation, go to <https://github.com/xiaket/better-header#Introduction>
+For English translation, go to <https://github.com/xiaket/better-header#introduction>
 
 简介
 ====
