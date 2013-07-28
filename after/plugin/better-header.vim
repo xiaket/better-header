@@ -21,7 +21,7 @@ endif
 
 " We would write header for files under these directories.
 if !exists("g:BHUnder")
-    let g:BHUnder = ['~/.xiaket/share/repos/ntes-repos', '~/.xiaket/share/Dropbox/mercurial', '~/.xiaket/share/Dropbox/my.repos']
+    let g:BHUnder = []
 endif
 
 if !exists("g:BHDebug")
