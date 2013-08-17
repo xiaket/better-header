@@ -5,6 +5,24 @@ For English translation, jump to <https://github.com/xiaket/better-header#introd
 
 这个插件会更新你的shell/python脚本的header, 使你的脚本便于维护. 你也可以在.vimrc里添加你自己需要的header.
 
+例如, 你在安装这个插件后, 在你的home目录下写一个新的python文件(newfile.py), 你会发现这个文件有了一个良好的header:
+
+```
+#!/usr/bin/env python
+#coding=utf-8
+"""
+Author:         尊姓大名 <yourname@example.com>
+Filename:       newfile.py
+Date created:   2013-08-17 20:43
+Last modified:  2013-08-17 20:43
+
+Description:
+
+"""
+```
+
+写一个新的shell文件也有类似的效果. 更舒心的是, header里上次更新时间和文件名这两个字段会自动更新.
+
 这个插件拓展了Francisco Piedrafita的header.vim的功能: <http://www.vim.org/scripts/script.php?script_id=1142>
 
 具体逻辑是:
@@ -116,6 +134,24 @@ Introduction
 ------------
 
 This vim plugin will update the header of your shell/python script, improving its readability and maintainablity. You could also add your header for your favourite language.
+
+As an example, after you've installed this plugin, after writing a new python file(a newfile.py for the time being), you will find the file is pre-filled with a nicely formatted header:
+
+```
+#!/usr/bin/env python
+#coding=utf-8
+"""
+Author:         尊姓大名 <yourname@example.com>
+Filename:       newfile.py
+Date created:   2013-08-17 20:43
+Last modified:  2013-08-17 20:43
+
+Description:
+
+"""
+```
+
+And that works for shell(.sh files) too. What's more, the 'Last modified' and the 'Filename' fields are automatically updated upon file write.
 
 This plugin is inspired by header.vim, originally written by Francisco Piedrafita: <http://www.vim.org/scripts/script.php?script_id=1142>
 
