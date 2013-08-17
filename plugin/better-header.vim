@@ -128,7 +128,7 @@ def should_do_write(filepath):
 
     # 白名单: BHUnder下的目录和子目录下的文件我们都写header.
     under_list = vim.eval("g:BHUnder")
-    for dirname in in_list:
+    for dirname in under_list:
         dirname = os.path.expanduser(dirname)
         if filepath.startswith(dirname):
             debug("File under BHUnder, do write.")
