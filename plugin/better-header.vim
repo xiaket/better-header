@@ -111,19 +111,20 @@ def should_do_write(filepath):
             debug("No permission, no write.")
             return False
 
-    file_dir = filepath.split('/')[1]
     # Files under exclude_dir should be exempted from writing.
+    file_dir = filepath.rsplit('/', 1)[0]
     exclude_dirs = vim.eval("g:BHExcludeDir")
-    dirs = [os.path.realpath(os.path.expanduser(dir_name)) for dir_name in exclude_dirs]
-    if file_dir in dirs:
-        debug("File in BHExcludeDir.")
-        return False
+    exclude_dirs = [os.path.realpath(os.path.expanduser(_dir)) for _dir in exclude_dirs]
+    for dirname in exclude_dirs:
+        if file_dir.startswith(dirname):
+            debug("File in BHExcludeDir, do write not.")
+            return False
 
     # 白名单: BHIn下的目录下的文件我们都要写header.
     in_list = vim.eval("g:BHIn")
     for dirname in in_list:
         dirname = os.path.realpath(os.path.expanduser(dirname))
-        if filepath.rsplit("/", 1)[0] == dirname:
+        if file_dir == dirname:
             debug("File in BHIn, do write.")
             return True
 
