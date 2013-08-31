@@ -141,7 +141,7 @@ def should_do_write(filepath):
 
 def add_header():
     current_buffer = vim.current.buffer
-    filename = current_buffer.name.split("/")[-1]
+    filename = os.path.basename(os.path.realpath(current_buffer.name))
     if not should_do_write(current_buffer.name):
         return
 
@@ -173,7 +173,7 @@ def add_header():
 
 def update_header():
     current_buffer = vim.current.buffer
-    filename = current_buffer.name.split("/")[-1]
+    filename = os.path.basename(os.path.realpath(current_buffer.name))
 
     header = current_buffer[:7]
     header_content = "\n".join(header)
