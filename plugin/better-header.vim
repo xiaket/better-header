@@ -139,18 +139,19 @@ def should_do_write(filepath):
     debug("default, do write not.")
     return False
 
-def add_header():
+def add_header(force=False):
     current_buffer = vim.current.buffer
     filename = os.path.basename(os.path.realpath(current_buffer.name))
-    if not should_do_write(current_buffer.name):
-        return
+    if not force:
+        if not should_do_write(current_buffer.name):
+            return
 
-    on_enter = vim.eval("exists('b:BHENTERED')")
-    if on_enter == '0':
-        vim.command("let b:BHENTERED = '1'")
-    else:
-        # variable exist, this function has been run on this buffer, so quit.
-        return
+        on_enter = vim.eval("exists('b:BHENTERED')")
+        if on_enter == '0':
+            vim.command("let b:BHENTERED = '1'")
+        else:
+            # variable exist, this function has been run on this buffer, so quit.
+            return
 
     author = vim.eval("g:BHAUTHOR")
     date = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -195,3 +196,6 @@ EOF
 " call these function when these events are triggered.
 autocmd bufread,bufnewfile * python add_header()
 autocmd bufwritepre * python update_header()
+
+" added a command to write header manually.
+command BHeader python add_header(force=True)
