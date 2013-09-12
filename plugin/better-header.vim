@@ -42,7 +42,7 @@ Description:
 \"\"\"
 """
 
-sh_header = """#!/bin/sh
+sh_header = """#!/usr/bin/env bash
 #
 # Author:         %(author)s
 # Filename:       %(filename)s
