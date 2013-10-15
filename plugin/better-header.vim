@@ -183,12 +183,13 @@ def update_header():
         debug("No previous header and cannot do write.")
         return
 
-    author = vim.eval("g:BHAUTHOR")
+    author = vim.eval("g:BHAUTHOR").replace("/", "\\/")
     date = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     row, column = vim.current.window.cursor
-    vim.command("silent! 1,7 s/Filename.*/Filename:       %s/e" % filename)
-    vim.command("silent! 1,7 s/Last modified:.*/Last modified:  %s/e" % date)
+    vim.command("silent! 1,8 s/Filename.*/Filename:       %s/e" % filename)
+    vim.command("silent! 1,8 s/Last modified:.*/Last modified:  %s/e" % date)
+    vim.command("silent! 1,8 s/Modified by:.*/Modified by:    %s/e" % author)
     vim.current.window.cursor = (row, column)
     debug("Header updated.")
 EOF
