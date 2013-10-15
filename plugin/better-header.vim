@@ -178,7 +178,7 @@ def update_header():
 
     header = current_buffer[:7]
     header_content = "\n".join(header)
-    if not "Last modified" in header_content and not should_do_write(current_buffer.name):
+    if not ("Last modified" in header_content and should_do_write(current_buffer.name)):
         # No previous header, and we should not write header, so no nothing.
         debug("No previous header and cannot do write.")
         return
