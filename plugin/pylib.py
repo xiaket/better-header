@@ -4,7 +4,7 @@
 Author:         Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
 Filename:       pylib.py
 Date created:   2014-02-12 13:11
-Last modified:  2014-03-21 13:55
+Last modified:  2014-03-24 10:57
 Modified by:    Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
 
 Description:
@@ -507,7 +507,8 @@ def modify_header():
         comment_dict['Description'] = '\n'.join(comment)
     else:
         comment_dict = read_comment(comment)
-    del comment_dict[""]
+    if "" in comment_dict:
+        del comment_dict[""]
     new_header_dict = read_comment(globals().get("%s_header" % SUFFIX).rstrip().splitlines())
     debug("new")
     debug(set(new_header_dict.keys()))
