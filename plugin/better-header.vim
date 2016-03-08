@@ -47,6 +47,8 @@ augroup betterheader
     " call these function when these events are triggered.
     autocmd!
     py import sys
+    " remove current directory, avoid import problems.
+    py sys.path = sys.path[1:]
     exe 'python sys.path.insert(0, "' . escape(expand('<sfile>:p:h'), '\') . '")'
     py from pylib import add_header, modify_header, update_header
     autocmd bufnewfile * python add_header()
