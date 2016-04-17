@@ -1,3 +1,8 @@
+if !has('python')
+    " Poor one.
+    finish
+endif
+
 " Default user. please override this in your vimrc.
 if !exists("g:BHAUTHOR")
     let g:BHAUTHOR = 'Your name <yourname@example.com>'
@@ -43,19 +48,43 @@ if !exists("g:BHDebug")
     let g:BHDebug = "0"
 endif
 
-augroup betterheader
-    " call these function when these events are triggered.
-    autocmd!
-    py import sys
-    " remove current directory, avoid import problems.
-    py sys.path = sys.path[1:]
-    exe 'python sys.path.insert(0, "' . escape(expand('<sfile>:p:h'), '\') . '")'
+function BHPyWrapper(action, force)
+    " use this function to wrap python code, accelerate startup.
+    if !exists("g:BHPathFixed")
+        let g:BHPathFixed = "0"
+    endif
+
+    if g:BHPathFixed == "0"
+        py import sys
+        " remove current directory, avoid import problems.
+        py sys.path = sys.path[1:]
+        exe 'python sys.path.insert(0, "' . escape(expand('<sfile>:p:h'), '\') . '")'
+        let g:BHPathFixed = "1"
+    endif
+
     py from pylib import add_header, modify_header, update_header
-    autocmd bufnewfile * python add_header()
-    autocmd bufread * python modify_header()
-    autocmd bufwritepre * python update_header()
+    if a:action == "add"
+        if a:force == "true"
+           python add_header(force=True)
+        else
+           python add_header(force=False)
+        endif
+    elseif a:action == "modify"
+        python modify_header()
+    elseif a:action == "update"
+        python update_header()
+    endif
+endfunction
+
+augroup betterheader
+    " Remove ALL autocommands for the current group.
+    autocmd!
+
+    autocmd bufnewfile * :call BHPyWrapper("add", "false")
+    autocmd bufread * :call BHPyWrapper("modify", "nouse")
+    autocmd bufwritepre * :call BHPyWrapper("update", "nouse")
 augroup END
 
 " added a command to write header manually.
-command BHeader python add_header(force=True)
-command BHChange python modify_header()
+command BHeader call BHPyWrapper("add", "true")
+command BHChange call BHPyWrapper("modify", "nouse")

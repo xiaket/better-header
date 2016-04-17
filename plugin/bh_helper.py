@@ -2,9 +2,9 @@
 #coding=utf-8
 """
 Author:         Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
-Filename:       pylib.py
+Filename:       bh_helper.py
 Date created:   2014-02-12 13:11
-Last modified:  2014-03-24 10:57
+Last modified:  2016-04-17 14:02
 Modified by:    Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
 
 Description:
@@ -567,3 +567,16 @@ def update_header():
                 CURRENT_BUFFER[index] = rendered_line
 
     vim.current.window.cursor = (row, column)
+
+
+if __name__ == '__main__':
+    action = sys.argv[0]
+    force = sys.argv[1] == "true"
+    debug("action: %s" % action)
+    debug("force: %s" % force)
+    if action == "add":
+        add_header(force=force)
+    elif action == "modify":
+        modify_header()
+    elif action == "update":
+        update_header()
