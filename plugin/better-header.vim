@@ -48,32 +48,13 @@ if !exists("g:BHDebug")
     let g:BHDebug = "0"
 endif
 
+let s:BHHelperPath = fnamemodify(resolve(expand('<sfile>:p')), ':h') . '/bh_helper.py'
+
 function! BHPyWrapper(action, force)
-    " use this function to wrap python code, accelerate startup.
-    if !exists("g:BHPathFixed")
-        let g:BHPathFixed = "0"
-    endif
-
-    if g:BHPathFixed == "0"
-        py import sys
-        " remove current directory, avoid import problems.
-        py sys.path = sys.path[1:]
-        exe 'python sys.path.insert(0, "' . escape(expand('<sfile>:p:h'), '\') . '")'
-        let g:BHPathFixed = "1"
-    endif
-
-    py from pylib import add_header, modify_header, update_header
-    if a:action == "add"
-        if a:force == "true"
-           python add_header(force=True)
-        else
-           python add_header(force=False)
-        endif
-    elseif a:action == "modify"
-        python modify_header()
-    elseif a:action == "update"
-        python update_header()
-    endif
+    python import sys
+    python import vim
+    python sys.argv = [vim.eval("a:action"), vim.eval("a:force")]
+    execute 'pyfile ' . s:BHHelperPath
 endfunction
 
 augroup betterheader
