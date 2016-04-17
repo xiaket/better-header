@@ -48,7 +48,7 @@ if !exists("g:BHDebug")
     let g:BHDebug = "0"
 endif
 
-function BHPyWrapper(action, force)
+function! BHPyWrapper(action, force)
     " use this function to wrap python code, accelerate startup.
     if !exists("g:BHPathFixed")
         let g:BHPathFixed = "0"
@@ -86,5 +86,5 @@ augroup betterheader
 augroup END
 
 " added a command to write header manually.
-command BHeader call BHPyWrapper("add", "true")
-command BHChange call BHPyWrapper("modify", "nouse")
+command! BHeader call BHPyWrapper("add", "true")
+command! BHChange call BHPyWrapper("modify", "nouse")
