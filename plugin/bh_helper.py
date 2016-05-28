@@ -4,7 +4,7 @@
 Author:         Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
 Filename:       bh_helper.py
 Date created:   2014-02-12 13:11
-Last modified:  2016-04-17 14:02
+Last modified:  2016-05-28 14:17
 Modified by:    Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
 
 Description:
@@ -52,7 +52,7 @@ ENCODING = 'utf-8'
 CURRENT_BUFFER = vim.current.buffer
 SUFFIX = CURRENT_BUFFER.name.split("/")[-1].split(".")[-1]
 FILENAME = os.path.basename(os.path.realpath(CURRENT_BUFFER.name))
-AUTHOR = vim.eval("g:BHAUTHOR")
+AUTHOR = vim.eval("b:BHAUTHOR")
 KEYWORDS = {
     'Author': 'author',
     'Filename': 'filename',

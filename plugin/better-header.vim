@@ -5,7 +5,9 @@ endif
 
 " Default user. please override this in your vimrc.
 if !exists("g:BHAUTHOR")
-    let g:BHAUTHOR = 'Your name <yourname@example.com>'
+    let b:BHAUTHOR = 'Your name <yourname@example.com>'
+else
+    let b:BHAUTHOR = g:BHAUTHOR
 endif
 
 " Enabled suffix. please override in your vimrc, and with each new suffix, 
