@@ -41,6 +41,7 @@ sh_header = """#!/usr/bin/env bash
 """
 import os
 import re
+import sys
 import vim
 from collections import defaultdict
 from copy import copy
@@ -424,7 +425,7 @@ def parse_keyword_in_comment(comment):
         re.I = True
         line_re = re.compile(r"(?P<key>%s)?:?\s*(?P<value>.*)" % keyword)
         re.I = False
-        
+
         first_line = line_re.match(comment[index]).group('value')
         return '\n'.join([first_line] + comment[index+1:jndex-1])
 
@@ -541,7 +542,6 @@ def update_header():
 
     # if line has the keyword, find the current for the keyword, get the line, re-render it and fill it in.
     head = CURRENT_BUFFER[:10]
-    head_content = '\n'.join(head)
 
     more_updates = vim.eval("g:BHUpdates")
 
