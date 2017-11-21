@@ -1,3 +1,8 @@
+There is no plan to maintain this plugin in the foreseeable future. For the record, I now use the following trick to do almost the same thing without all the hassle: 
+
+https://github.com/xiaket/etc/blob/237e852750c9bc21e68f1f1a993e2860b30e5905/vim/init.vim#L125
+
+
 For English translation, jump to <https://github.com/xiaket/better-header#introduction>
 
 简介
