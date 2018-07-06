@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 #coding=utf-8
 """
-Author:         Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
+Author:         Kai Xia <xiaket@gmail.com>
 Filename:       bh_helper.py
 Date created:   2014-02-12 13:11
 Last modified:  2016-05-28 14:17
-Modified by:    Xia Kai <xiaket@corp.netease.com/xiaket@gmail.com>
+Modified by:    Kai Xia <xiaket@gmail.com>
 
 Description:
     python code for better-header.
